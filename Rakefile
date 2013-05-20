@@ -275,7 +275,7 @@ task :push_octopress_origin do
   system "git commit -m \"#{message}\""
   puts "\n## Pushing generated #{Dir.pwd} website"
   system "git push #{octopress_origin_remote} master --force"
-  puts "\n## Github Pages deploy complete"
+  puts "\n## Octopress origin deploy complete"
 end
 
 desc "Update configurations to support publishing to root or sub directory"
