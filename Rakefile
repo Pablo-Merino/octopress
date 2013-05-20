@@ -14,6 +14,8 @@ deploy_default = "push"
 # This will be configured for you when you run config_deploy
 deploy_branch  = "master"
 
+octopress_origin_remote = "octopress"
+
 ## -- Misc Configs -- ##
 
 public_dir      = "public"    # compiled site directory
@@ -261,6 +263,19 @@ multitask :push do
     system "git push origin #{deploy_branch} --force"
     puts "\n## Github Pages deploy complete"
   end
+
+  Rake::Task[:push_octopress_origin].execute
+end
+
+task :push_octopress_origin do
+  system "git add ."
+  system "git add -u"
+  puts "\n## Commiting origin: Site updated at #{Time.now.utc}"
+  message = "Site updated at #{Time.now.utc}"
+  system "git commit -m \"#{message}\""
+  puts "\n## Pushing generated #{Dir.pwd} website"
+  system "git push #{octopress_origin_remote} master --force"
+  puts "\n## Github Pages deploy complete"
 end
 
 desc "Update configurations to support publishing to root or sub directory"
